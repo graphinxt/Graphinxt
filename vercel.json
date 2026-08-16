@@ -1,0 +1,46 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node build.js",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+
+  "redirects": [
+    {
+      "source": "/blog.html",
+      "has": [{ "type": "query", "key": "id", "value": "(?<slug>.*)" }],
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/service.html",
+      "has": [{ "type": "query", "key": "id", "value": "(?<slug>.*)" }],
+      "destination": "/services/:slug",
+      "permanent": true
+    },
+    { "source": "/blog-article", "destination": "/blog", "permanent": false },
+    { "source": "/service-detail", "destination": "/services", "permanent": false }
+  ],
+
+  "rewrites": [
+    { "source": "/blog/:slug", "destination": "/blog-article.html?id=:slug" },
+    { "source": "/services/:slug", "destination": "/service-detail.html?id=:slug" }
+  ],
+
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}

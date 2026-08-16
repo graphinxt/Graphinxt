@@ -1,0 +1,17 @@
+# generated build output — never commit, Vercel regenerates it
+dist/
+
+# secrets
+.env
+.env.local
+.env*.local
+
+# deps & tooling
+node_modules/
+.vercel/
+
+# junk
+.DS_Store
+Thumbs.db
+*.bak
+*.bak-*
